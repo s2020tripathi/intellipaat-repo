@@ -50,6 +50,14 @@ tree
  apt install tree
  
  terraform init
+ 
+ aws configure:
+ goto EC2 console and choose option Security Credentials click  on Access key  and download it
+ AWS Access key:paste it
+ AWS Secret Access Key [none]:paste it
+ Region name:us-west-2
+ Defaultoutput format:simply enter
+ 
  terraform plan
  terraform apply
  Enter a value :yes
