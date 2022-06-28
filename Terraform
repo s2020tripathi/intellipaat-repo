@@ -1,0 +1,56 @@
+https://learn.hashicorp.com/tutorials/terraform/aws-build?in=terraform/aws-get-started
+
+mkdir learn-terraform-aws-instance
+cd learn-terraform-aws-instance
+vim main.tf
+
+paste code....
+
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
+    }
+  }
+
+  required_version = ">= 1.2.0"
+}
+
+provider "aws" {
+  region  = "us-west-2"
+}
+
+resource "aws_instance" "app_server" {
+  ami           = "ami-830c94e3"
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "ExampleAppServerInstance"
+  }
+}
+
+
+esc:wq!
+
+terraform init
+terraform plan......throwing error
+aws configure
+go to ec2 instance
+
+choose security credentials  choose Access key and download it.
+AWS Access Key [none]:paste it
+AWS Secret AccessKey [none]:paste it
+Default Region name:us-west-2
+Default output format:simply enter
+terraform plan
+teraform apply
+
+
+then go to EC2 console and select the region US West (Oregon) us-west-2
+
+and refresh console then see automatically create AWS instance ExampleAppServerIntance.
+
+after using it u destroy.....
+
+terraform destroy.
