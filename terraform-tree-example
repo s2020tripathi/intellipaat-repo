@@ -1,0 +1,59 @@
+link....
+
+https://automateinfra.com/2021/03/22/how-to-launch-multiple-ec2-instances-on-aws-using-terraform/
+
+mkdir /opt/terraform-demo
+cd /opt/terraform-demo
+
+Create main.tf file /vim main.tf
+resource "aws_instance" "my-machine" {
+   count = 4   # Here we are creating identical 4 machines. 
+   ami = var.ami
+   instance_type = var.instance_type
+   tags = {
+      Name = "my-machine-${count.index}"
+           }
+}
+
+vim vars.tf 
+
+# Creating a Variable for ami
+variable "ami" {       
+  type = string
+}
+ 
+# Creating a Variable for instance_type
+variable "instance_type" {    
+  type = string
+}
+
+vim terraform.tfvars
+
+ami = "ami-830c94e3"
+instance_type = "t2.micro"
+
+
+vim  outputs.tf
+output "ec2_machines" {
+ # Here * indicates that there are more than one arn because count is 4   
+  value = aws_instance.my-machine.*.arn 
+}
+
+
+vim  provider.tf
+
+provider "aws" {
+  region = "us-west-2"
+}
+
+tree
+ apt install tree
+ 
+ terraform init
+ terraform plan
+ terraform apply
+ Enter a value :yes
+ terraform destroy
+
+
+
